@@ -41,6 +41,11 @@ fun main() {
     println(profesor.nombre + profesor.repartirExamen())
 
     runBlocking {
+        listaAlumnos.forEach {
+            this.launch {
+
+            }
+        }
 
     }
 
@@ -53,7 +58,7 @@ fun main() {
 class Profesor(val nombre : String, val listaExamenes : MutableList<Examen>){
     fun repartirExamen() : String{ return " reparte exámenes"}
 }
-class Alumno(val nombre : String){
+class Alumno(val nombre : String, val examen : Examen){
     fun llegar() : String{ return " ha llegado"}
     fun hacerExamen() : String{ return " hace el examen"}
 }
