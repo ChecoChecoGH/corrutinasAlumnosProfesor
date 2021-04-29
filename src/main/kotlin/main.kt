@@ -60,7 +60,7 @@ fun main() {
     profesor.corregirExamenes()
 }
 
-class Profesor(val nombre: String, val listaAlumnos : MutableList<Alumno>, val listaExamen: MutableList<Examen>){
+class Profesor(val nombre: String, private val listaAlumnos : MutableList<Alumno>, private val listaExamen: MutableList<Examen>){
     //el profesor asigna a cada examen el nombre de cada alumno
     fun repartirExamen(): String{
         var i = 0
