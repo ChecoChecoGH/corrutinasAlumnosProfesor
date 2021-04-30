@@ -35,10 +35,7 @@ fun main() {
     //Llegada de alumnos a clase
     runBlocking {
         listaAlumnos.forEach {
-            this.launch {
-                delay((1..6).random()*1000L)
-                println(it.nombre + it.llegar())
-            }
+            this.launch { println(it.nombre + it.llegar()) }
         }
     }
 
@@ -64,6 +61,7 @@ class Profesor(val nombre: String, private val listaAlumnos : MutableList<Alumno
     //el profesor asigna a cada examen el nombre de cada alumno
     fun repartirExamen(): String{
         var i = 0
+        //cambiar la lista de examenes por la de alumnos y pasarle el examen
         listaExamen.forEach { examen -> examen.nombre = listaAlumnos[i++].nombre }
         return "\n$nombre ha repartido el examen a todos los alumnos\n"
     }
@@ -73,7 +71,7 @@ class Profesor(val nombre: String, private val listaAlumnos : MutableList<Alumno
         //doy una nota a cada alumno
         listaExamen.forEach { examen -> examen.nota = String.format("%.2f", Random.nextDouble(0.0, 10.01)).replace(',','.').toDouble() }
 
-        //ordeno y muestro ordenado
+        //ordeno y muestro ordenado de menor a mayor nota
         listaExamen.sortBy { it.nota }
         listaExamen.forEach { examen -> println("El alumno ${examen.nombre} ha sacado un ${examen.nota}") }
 
@@ -81,7 +79,9 @@ class Profesor(val nombre: String, private val listaAlumnos : MutableList<Alumno
 }
 
 class Alumno(var nombre : String, var examen : Examen){
-    fun llegar() : String{ return " he llegado"}
+    suspend fun llegar() : String{
+        delay((1..6).random()*1000L)
+        return " he llegado"}
     fun acabadoExamen() : String{ return "El alumno $nombre ha terminado el examen"}
 }
 
