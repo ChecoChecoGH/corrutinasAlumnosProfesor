@@ -70,10 +70,13 @@ class Profesor(val nombre: String, private val listaAlumnos : MutableList<Alumno
 
     //a cada examen.nota le asigno un numero aleatorio y muestro el examen.nombre y el examen.nota
     fun corregirExamenes(){
-        listaExamen.forEach { examen ->
-            examen.nota = String.format("%.2f", Random.nextDouble(0.0, 10.01)).replace(',','.').toDouble()
-            println("El alumno ${examen.nombre} ha sacado un ${examen.nota}")
-        }
+        //doy una nota a cada alumno
+        listaExamen.forEach { examen -> examen.nota = String.format("%.2f", Random.nextDouble(0.0, 10.01)).replace(',','.').toDouble() }
+
+        //ordeno y muestro ordenado
+        listaExamen.sortBy { it.nota }
+        listaExamen.forEach { examen -> println("El alumno ${examen.nombre} ha sacado un ${examen.nota}") }
+
     }
 }
 
