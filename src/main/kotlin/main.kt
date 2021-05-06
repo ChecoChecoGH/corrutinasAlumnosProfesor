@@ -1,6 +1,7 @@
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import java.util.*
 import kotlin.random.Random
 
 const val TAMCLASE = 30-1
@@ -69,7 +70,8 @@ class Profesor(val nombre: String, private val listaAlumnos : MutableList<Alumno
     //a cada examen.nota le asigno un numero aleatorio y muestro el examen.nombre y el examen.nota
     fun corregirExamenes(){
         //doy una nota a cada alumno
-        listaExamen.forEach { examen -> examen.nota = String.format("%.2f", Random.nextDouble(0.0, 10.01)).replace(',','.').toDouble() }
+        //al poner el Locale.US ya entiende que la coma es el punto, otra opción sería con: .replace(',','.')
+        listaExamen.forEach { examen -> examen.nota = String.format(Locale.US,"%.2f", Random.nextDouble(0.0, 10.01)).toDouble() }
 
         //ordeno y muestro ordenado de menor a mayor nota
         listaExamen.sortBy { it.nota }
